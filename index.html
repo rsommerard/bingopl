@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8" />
+  <title>Le Bingo de l'OPL !</title>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <style>
+body, footer, small , p { width:auto; text-align:center; margin:10px auto; }
+small, a, footer , p { color:grey; font-size:1em; text-decoration:none; }
+a:hover { color:black; }
+h1, button { font-family:Verdana; }
+pre { display:none; } p { vertical-align: middle; }
+#bingo { height:372px; width:372px; margin:10px auto;
+     text-transform:none; text-align:center; }
+.devant, .derriere { width: inherit; height: inherit; border:2px solid black; }
+.a { background: white; color: black;
+     float:right; border:2px solid black; }
+.b { height:120px; width:120px; display: table-cell; vertical-align: middle;
+     text-align:center; overflow:auto; background:grey; }
+.c { background:#fafafa; }
+.d { background:#ff0; }
+.c:hover { background:#eee; }
+.c:active { background:#ddd; }
+.d:hover { background:#ee0; }
+.d:active { background:#dd0; }
+
+section, article, header, footer, nav, aside, hgroup {
+  display: block; /* gestion du html5 */
+}
+
+
+/*     Les animations 3D en html5 !     */
+
+ #bingo {
+  position: relative;
+  -webkit-perspective: 600px;
+  -moz-perspective: 600px;
+ }
+
+ #bingo .devant {
+  float: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 900;
+  width: inherit;
+  height: inherit;
+  -webkit-transform: rotateY(0deg);
+  -webkit-transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+  -moz-transform: rotateY(0deg);
+  -moz-transform-style: preserve-3d;
+  -moz-backface-visibility: hidden;
+  -o-transition: all .4s ease-in-out;
+  -ms-transition: all .4s ease-in-out;
+  -moz-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+ }
+
+ #bingo.flip .devant {
+  z-index: 900;
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+ }
+
+ #bingo .derriere {
+  float: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 800;
+  width: inherit;
+  height: inherit;
+  -webkit-transform: rotateY(-180deg);
+  -webkit-transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+  -moz-transform: rotateY(-180deg);
+  -moz-transform-style: preserve-3d;
+  -moz-backface-visibility: hidden;
+  -o-transition: all .4s ease-in-out;
+  -ms-transition: all .4s ease-in-out;
+  -moz-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+ }
+
+ #bingo.flip .derriere {
+  z-index: 1000;
+  -webkit-transform: rotateY(0deg);
+  -moz-transform: rotateY(0deg);
+ }
+
+  </style>
+ </head>
+<body>
+
+<header>
+
+<h1>Le Bingo de l'<a href="http://portail.fil.univ-lille1.fr/portail/index.php?dipl=MInfo&sem=IAGL&ue=OPL&label=Pr%C3%A9sentation">OPL</a> !</h1>
+<button id="nouvelle">Nouvelle grille</button><br/>
+</header>
+
+<pre>Scope, Funky, Génial, Spoon, Super, Bug, Test, IDE, Tricky, Deadline, Fun, Open, Speed, Eclipse, Java, Objet, Challenge, Challenging, Pull request, Github, Montée en charge, Process, Feedback</pre>
+
+
+
+<article id="bingo">
+ <div class="devant"></div>
+ <div class="derriere"></div>
+</article>
+
+<!-- Gazouilli -->
+<footer>
+<p><a href="https://github.com/rsommerard/bingopl">Proposer de nouveaux mots.</a></p>
+</footer>
+
+<script>
+function Grille(){
+ var o='';
+ var m=$('pre').text().split(', ');
+ var v=Math.floor(Math.random()*3);
+ for (i=1;i<=9;i++) {
+  var n=Math.floor(Math.random()*m.length);
+  var t=((i+v)%5)?' c"><span>'+m[n]+'</span>':'">';
+  o=o+'<div class="a"><div class="b'+t+'</div></div>';
+  m.splice(n,1);
+ }
+ if($('#bingo .devant').is('.active')) {
+  $('#bingo .derriere').html('').append(o);
+  $('#bingo').addClass('flip');
+ } else {
+  $('#bingo .devant').html('').append(o);
+  $('#bingo').removeClass('flip');
+ }
+ $('#bingo .devant').toggleClass('active')
+ $('.c').click(function(){
+  $(this).toggleClass('d').toggleClass('c');
+  if(!$(this).parent().parent().find('.c').length) alert("Bingo !");
+ });
+}
+$('#nouvelle').click(Grille);
+$(document).ready(function(){
+ Grille();
+ setTimeout(Grille,500);
+});
+</script>
+
+</body>
+</html>
