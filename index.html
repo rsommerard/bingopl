@@ -12,7 +12,7 @@ small, a, footer , p { color:grey; font-size:1em; text-decoration:none; }
 a:hover { color:black; }
 h1, button { font-family:Verdana; }
 pre { display:none; } p { vertical-align: middle; }
-#bingo { height:372px; width:372px; margin:10px auto;
+#bingo { height:496px; width:496px; margin:10px auto;
      text-transform:none; text-align:center; }
 .devant, .derriere { width: inherit; height: inherit; border:2px solid black; }
 .a { background: white; color: black;
@@ -121,10 +121,10 @@ section, article, header, footer, nav, aside, hgroup {
 function Grille(){
  var o='';
  var m=$('pre').text().split(', ');
- var v=Math.floor(Math.random()*3);
- for (i=1;i<=9;i++) {
+ var v=Math.floor(Math.random()*5);
+ for (i=1;i<=16;i++) {
   var n=Math.floor(Math.random()*m.length);
-  var t=((i+v)%5)?' c"><span>'+m[n]+'</span>':'">';
+  var t=((i+v)%3)?' c"><span>'+m[n]+'</span>':'">';
   o=o+'<div class="a"><div class="b'+t+'</div></div>';
   m.splice(n,1);
  }
